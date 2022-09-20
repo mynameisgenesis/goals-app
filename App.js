@@ -14,12 +14,14 @@ export default function App() {
       ...currentCourseGoals,
       enteredGoalText,
     ]);
+    setEnteredGoalText('');
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
+          value={enteredGoalText}
           style={styles.textInput}
           placeholder="Your course goals"
           onChangeText={goalInputHandler}
@@ -28,7 +30,9 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         {courseGoals.map((goal) => (
-          <Text key={goal}>{goal}</Text>
+          <Text style={styles.goalsItem} key={goal}>
+            {goal}
+          </Text>
         ))}
       </View>
     </View>
@@ -59,5 +63,12 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     flex: 6,
+  },
+  goalsItem: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: '#5e0acc',
+    color: '#fff',
   },
 });
