@@ -15,7 +15,7 @@ export default function App() {
 
   function deleteGoalHandler(id) {
     setCourseGoals((currentCourseGoals) => {
-      return currentCourseGoals.filter(id);
+      return currentCourseGoals.filter((goal) => goal.id !== id);
     });
   }
 
@@ -29,7 +29,13 @@ export default function App() {
         <FlatList
           data={courseGoals}
           renderItem={(goalData) => {
-            return <GoalItem text={goalData.item.text} />;
+            return (
+              <GoalItem
+                text={goalData.item.text}
+                id={goalData.item.id}
+                deleteGoalHandler={deleteGoalHandler}
+              />
+            );
           }}
           keyExtractor={(item, index) => {
             return item.id;
