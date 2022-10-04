@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, View, Button, FlatList } from 'react-native';
 import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -30,36 +31,39 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Button
-        title="Add New Goal"
-        color="#5e0acc"
-        onPress={openGoalInputModal}
-      />
-      <GoalInput
-        addGoalHandler={addGoalHandler}
-        closeGoalInputModal={closeGoalInputModal}
-        visible={modalIsVisible}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(goalData) => {
-            return (
-              <GoalItem
-                text={goalData.item.text}
-                id={goalData.item.id}
-                deleteGoalHandler={deleteGoalHandler}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-          alwaysBounceVertical={false}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        <Button
+          title="Add New Goal"
+          color="#a065ec"
+          onPress={openGoalInputModal}
         />
+        <GoalInput
+          addGoalHandler={addGoalHandler}
+          closeGoalInputModal={closeGoalInputModal}
+          visible={modalIsVisible}
+        />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(goalData) => {
+              return (
+                <GoalItem
+                  text={goalData.item.text}
+                  id={goalData.item.id}
+                  deleteGoalHandler={deleteGoalHandler}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
